@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>마음 대피소 (Mind Oasis)</title>
-    <!-- 차분하고 둥근 폰트 -->
+    <!-- 차분하고 둥근 안심 폰트 적용 -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19; /* 마음을 진정시키는 편안한 밤하늘색 */
+            --bg-color: #0b0f19; /* 불안을 낮춰주는 깊은 밤하늘색 */
             --card-bg: #1e293b;  
-            --primary-color: #38bdf8; /* 은은한 하늘빛 */
-            --accent-color: #f43f5e;  /* 따뜻한 위로의 로즈빛 */
+            --primary-color: #38bdf8; /* 마음을 차분하게 만드는 하늘빛 */
+            --accent-color: #f43f5e;  /* 보호와 긴급 연락용 로즈 레드 */
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
-            --success-color: #34d399;
         }
 
         * {
@@ -35,24 +34,24 @@
             padding: 15px;
         }
 
-        /* 스마트폰 가로 크기에 딱 맞춘 아늑한 모바일 컨테이너 */
+        /* 폰 화면 크기에 딱 맞춘 아늑한 비밀 안심 컨테이너 */
         .app-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             background: #111827;
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             padding: 20px;
-            min-height: 750px;
+            min-height: 780px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             border: 1px solid #374151;
         }
 
         header {
             text-align: center;
-            padding: 10px 0;
+            padding: 8px 0;
             border-bottom: 1px solid #1f2937;
         }
 
@@ -69,53 +68,15 @@
         header p {
             font-size: 11px;
             color: var(--text-muted);
-            margin-top: 4px;
+            margin-top: 5px;
             line-height: 1.4;
         }
 
-        /* 상단 피해 치료 탭 메뉴 */
-        .tab-menu {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            background: #1e293b;
-            padding: 4px;
-            border-radius: 12px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            padding: 10px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            background: #0f172a;
-            color: var(--primary-color);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .tab-content {
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .tab-content.active {
-            display: flex;
-        }
-
-        /* 공통 카드 컴포넌트 */
+        /* 공통 카드 스타일 */
         .card {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 18px;
+            padding: 16px;
             border: 1px solid #334155;
             display: flex;
             flex-direction: column;
@@ -131,67 +92,106 @@
             gap: 6px;
         }
 
-        /* 1단계: 마인드 안정 들이마시기 서클 */
-        .breath-box {
+        /* 1. 최상단 배치: 실질적 대처를 위한 핫라인 버튼 */
+        .hotline-group {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 0;
+            gap: 8px;
         }
 
-        .breath-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: rgba(56, 189, 248, 0.15);
-            border: 2px solid var(--primary-color);
+        .hotline-item {
+            background: #0f172a;
+            border: 1.5px solid #334155;
+            border-radius: 12px;
+            padding: 12px 16px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+
+        .hotline-item:active {
+            border-color: var(--primary-color);
+            background: #1e293b;
+        }
+
+        .hotline-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .hotline-title {
             font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+        }
+
+        .hotline-number {
+            font-size: 15px;
             font-weight: 900;
-            animation: breathe 8s infinite ease-in-out;
             color: var(--primary-color);
         }
 
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); background: rgba(56, 189, 248, 0.1); }
-            45%, 55% { transform: scale(1.35); background: rgba(56, 189, 248, 0.3); }
+        .hotline-item.emergency .hotline-number {
+            color: var(--accent-color);
         }
 
-        /* 2단계: 상처 지우기 인풋 및 위로 팝업 */
-        .trash-input {
-            width: 100%;
-            height: 55px;
-            background: #0f172a;
-            border: 1px solid #475569;
-            border-radius: 10px;
-            padding: 10px;
-            color: var(--text-light);
-            font-size: 11px;
-            outline: none;
-            resize: none;
-            font-weight: 500;
-        }
-
-        .action-btn {
+        .call-icon {
             background: var(--primary-color);
             color: #0f172a;
-            border: none;
-            padding: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+            box-shadow: 0 2px 6px rgba(56, 189, 248, 0.2);
+        }
+
+        .hotline-item.emergency .call-icon {
+            background: var(--accent-color);
+            box-shadow: 0 2px 6px rgba(244, 63, 94, 0.2);
+        }
+
+        /* 2. 감정 정화용 추상적 버튼 (직접 텍스트 인풋 삭제) */
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .emotion-btn {
+            background: #0f172a;
+            border: 1px solid #475569;
+            color: var(--text-light);
+            padding: 12px 6px;
             border-radius: 10px;
-            font-size: 12px;
-            font-weight: 900;
+            font-size: 11px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
         }
 
-        .action-btn:active {
-            transform: scale(0.98);
+        .emotion-btn:active {
+            transform: scale(0.95);
+            background: var(--card-bg);
         }
 
-        .message-bubble {
+        .emotion-emoji {
+            font-size: 20px;
+        }
+
+        /* 심리 힐링 위로 말풍선 */
+        .healing-bubble {
             background: #1e1b4b;
             border: 1px solid #4f46e5;
             border-radius: 12px;
@@ -201,6 +201,7 @@
             color: #c7d2fe;
             display: none;
             animation: fadeIn 0.4s ease;
+            margin-top: 4px;
         }
 
         @keyframes fadeIn {
@@ -208,82 +209,45 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 3단계: 신고/상담 핫라인 리스트 */
-        .phone-list {
+        /* 3. 안심 자가 호흡 타이머 */
+        .breath-area {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .phone-item {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            text-decoration: none;
-            color: var(--text-light);
-            transition: border-color 0.2s;
+            padding: 8px 0;
         }
 
-        .phone-item:hover {
-            border-color: var(--primary-color);
-        }
-
-        .phone-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .phone-title {
-            font-size: 12px;
-            font-weight: 900;
-            color: var(--text-light);
-        }
-
-        .phone-number {
-            font-size: 14px;
-            font-weight: 900;
-            color: var(--primary-color);
-        }
-
-        .call-icon {
-            background: var(--primary-color);
-            color: #0f172a;
-            width: 32px;
-            height: 32px;
+        .breath-circle {
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
+            background: rgba(56, 189, 248, 0.1);
+            border: 2px solid var(--primary-color);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 14px;
-            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+            font-size: 11px;
+            font-weight: 800;
+            animation: expandCollapse 8s infinite ease-in-out;
+            color: var(--primary-color);
         }
 
-        .phone-item.emergency .call-icon {
-            background: var(--accent-color);
-            box-shadow: 0 2px 8px rgba(244, 63, 94, 0.3);
+        @keyframes expandCollapse {
+            0%, 100% { transform: scale(1); background: rgba(56, 189, 248, 0.05); }
+            45%, 55% { transform: scale(1.3); background: rgba(56, 189, 248, 0.25); }
         }
 
-        .phone-item.emergency .phone-number {
-            color: var(--accent-color);
-        }
-
-        /* 증거 비밀 가이드 */
-        .guide-step {
+        /* 4. 증거 확보 캡처 가이드 */
+        .guide-box {
             background: #0f172a;
-            padding: 10px;
+            padding: 10px 12px;
             border-radius: 10px;
             font-size: 11px;
             line-height: 1.5;
             color: #cbd5e1;
-            margin-bottom: 6px;
         }
 
-        .guide-step strong {
+        .guide-box strong {
             color: #fbbf24;
         }
     </style>
@@ -293,146 +257,115 @@
     <div class="app-container">
         <header>
             <h1>🌌 마음 대피소 (Oasis)</h1>
-            <p>이름이나 비밀번호는 묻지 않아요. 여긴 100% 완전 익명 비밀 보호구역입니다.</p>
+            <p>이름, 학번, 개인 정보는 아예 묻지 않아요.<br>여기는 완전히 안전하고 비밀이 지켜지는 방패막입니다.</p>
         </header>
 
-        <!-- 탭 전환 장치 -->
-        <div class="tab-menu">
-            <button class="tab-btn active" onclick="switchTab('tab-healing')">❤️ 마음 안심하기</button>
-            <button class="tab-btn" onclick="switchTab('tab-law')">🛡️ 증거 남기고 상담하기</button>
+        <!-- 1단계 배치: 비밀 상담 핫라인 (원클릭 다이렉트 긴급 콜) -->
+        <div class="card">
+            <h3>📞 든든한 전문가 연락망 (상담기록 비밀 보장)</h3>
+            <div class="hotline-group">
+                <!-- 푸른나무재단 전국상담 -->
+                <a href="tel:1588-9128" class="hotline-item emergency">
+                    <div class="hotline-info">
+                        <span class="hotline-title">푸른나무재단 24시간 상담 핫라인</span>
+                        <span class="hotline-number">1588-9128</span>
+                    </div>
+                    <div class="call-icon">📞</div>
+                </a>
+
+                <!-- 학교폭력 신고전화 -->
+                <a href="tel:117" class="hotline-item">
+                    <div class="hotline-info">
+                        <span class="hotline-title">경찰청 학교폭력 긴급 구조 센터</span>
+                        <span class="hotline-number">117</span>
+                    </div>
+                    <div class="call-icon">🚨</div>
+                </a>
+
+                <!-- 청소년 상담 헬프라인 -->
+                <a href="tel:1388" class="hotline-item">
+                    <div class="hotline-info">
+                        <span class="hotline-title">여성가족부 청소년 헬프콜</span>
+                        <span class="hotline-number">1388</span>
+                    </div>
+                    <div class="call-icon">📱</div>
+                </a>
+            </div>
         </div>
 
-        <!-- 탭 1: 마음 치유 영역 -->
-        <div class="tab-content active" id="tab-healing">
-            
-            <!-- 심호흡 서클 -->
-            <div class="card">
-                <h3>🌊 심장이 너무 쿵쾅거릴 때</h3>
-                <div class="breath-box">
-                    <div class="breath-circle" id="breath-text">들이마시기</div>
-                </div>
-                <p style="font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.4;">
-                    원이 점점 커질 때 숨을 가볍게 들이마시고,<br>원이 작아질 때 숨을 조용히 내쉬어 보세요.
-                </p>
+        <!-- 2단계 배치: 감정 털어내기 (직접 입력창 완전 삭제로 2차 상처 예방) -->
+        <div class="card">
+            <h3>💫 지금 내 마음에 얹힌 짐 내려놓기</h3>
+            <p style="font-size: 10px; color: var(--text-muted); line-height: 1.4;">
+                상처받은 말을 타이핑할 필요 없어요. 내 억울함과 불안함을 가진 감정 덩어리를 꾹 터치해서 우주 너머로 버려주세요.
+            </p>
+            <div class="emotion-grid">
+                <button class="emotion-btn" onclick="clearBurden('💧 억울함과 슬픔')">
+                    <span class="emotion-emoji">💧</span>
+                    <span>슬픔·억울함</span>
+                </button>
+                <button class="emotion-btn" onclick="clearBurden('😨 두려움과 불안')">
+                    <span class="emotion-emoji">😨</span>
+                    <span>두려움·불안</span>
+                </button>
+                <button class="emotion-btn" onclick="clearBurden('🔥 분노와 답답함')">
+                    <span class="emotion-emoji">🔥</span>
+                    <span>분노·답답함</span>
+                </button>
             </div>
-
-            <!-- 상처 버리기 -->
-            <div class="card">
-                <h3>💫 나쁜 단어 지워버리기</h3>
-                <p style="font-size: 10px; color: var(--text-muted);">나를 괴롭힌 비속어나 카톡글을 아래에 쓰고 던져버리세요.</p>
-                <textarea id="bad-word-input" class="trash-input" placeholder="상처 주었던 나쁜 말들을 적어보세요..."></textarea>
-                <button class="action-btn" onclick="destroyWords()">나쁜 말 공중 분해하기 💥</button>
-                <div class="message-bubble" id="healing-message"></div>
-            </div>
-
+            <!-- 정서 조율 및 위로 말풍선 -->
+            <div class="healing-bubble" id="healing-output"></div>
         </div>
 
-        <!-- 탭 2: 대처 및 실제 연락처 노출 -->
-        <div class="tab-content" id="tab-law">
-            
-            <!-- 증거 수집 가이드 -->
-            <div class="card">
-                <h3>⚖️ 피해 해결을 위한 비밀 증거 가이드</h3>
-                <div class="guide-step">
-                    상처를 남긴 단톡방을 억울하다고 바로 나가거나 지우면 안 돼요! 가해자를 확실하게 막아내려면 <strong>법적 효력이 있는 캡처본</strong>이 꼭 필요합니다.
-                </div>
-                <div class="guide-step">
-                    1. <strong>날짜와 시간</strong>이 확실히 화면에 나오게 캡처해 두세요.<br>
-                    2. 가해자의 <strong>SNS 아이디나 프로필 화면</strong>을 같이 캡처하세요.<br>
-                    3. 욕을 하지 않았더라도 동조하거나 모른 척한 <strong>방관자들 명단</strong>도 확보합니다.
-                </div>
+        <!-- 3단계 배치: 안심 심호흡 서클 -->
+        <div class="card">
+            <h3>🌊 몸이 떨리고 심장이 마구 뛸 때</h3>
+            <div class="breath-area">
+                <div class="breath-circle" id="breath-status">들이마시기</div>
             </div>
+            <p style="font-size: 10px; color: var(--text-muted); text-align: center; line-height: 1.4;">
+                원이 점점 커질 때 가만히 숨을 들이마시고,<br>원이 서서히 작아질 때 조용히 입으로 숨을 내쉬어 보세요.
+            </p>
+        </div>
 
-            <!-- 다이렉트 긴급 콜 핫라인 -->
-            <div class="card">
-                <h3>📞 꾹 누르면 바로 걸리는 든든한 상담소</h3>
-                <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 5px;">전화 상담 기록은 학교에 흔적조차 남지 않아요. 용기 내어 꾹 눌러보세요.</p>
-                
-                <div class="phone-list">
-                    <!-- 푸른나무재단 상담전화 -->
-                    <a href="tel:1588-9128" class="phone-item emergency">
-                        <div class="phone-info">
-                            <span class="phone-title">푸른나무재단 비폭력 24시간 상담</span>
-                            <span class="phone-number">1588-9128</span>
-                        </div>
-                        <div class="call-icon">📞</div>
-                    </a>
-
-                    <!-- 경찰청 학교폭력 신고전화 -->
-                    <a href="tel:117" class="phone-item">
-                        <div class="phone-info">
-                            <span class="phone-title">경찰청 학교폭력 긴급 신고처</span>
-                            <span class="phone-number">117</span>
-                        </div>
-                        <div class="call-icon">🚨</div>
-                    </a>
-
-                    <!-- 청소년 헬프라인 -->
-                    <a href="tel:1388" class="phone-item">
-                        <div class="phone-info">
-                            <span class="phone-title">여성가족부 청소년 모바일 상담</span>
-                            <span class="phone-number">1388</span>
-                        </div>
-                        <div class="call-icon">📱</div>
-                    </a>
-                </div>
+        <!-- 4단계 배치: 증거 보존 가이드 -->
+        <div class="card">
+            <h3>🛡️ 나를 지켜줄 비밀 증거 확보법</h3>
+            <div class="guide-box">
+                단톡방 욕설을 보고 속상해서 바로 대화방을 나가버리면 안 돼요! 나를 보호하고 잘못을 밝히려면 <strong>법적 효력 증거</strong>가 제일 먼저 확보되어야 합니다.<br><br>
+                1. <strong>날짜와 시간</strong>이 확실히 대화 화면에 나오도록 캡처해 두세요.<br>
+                2. 가해 상대방의 <strong>SNS 프로필 화면과 계정 ID</strong>를 꼭 함께 확보하세요.<br>
+                3. 동조하거나 옆에서 낄낄댄 <strong>방관 친구들 명단</strong>도 함께 남겨둬야 합니다.
             </div>
-
         </div>
     </div>
 
     <script>
-        // 탭 전환 엔진
-        function switchTab(tabId) {
-            const tabs = document.querySelectorAll('.tab-content');
-            const btns = document.querySelectorAll('.tab-btn');
-
-            tabs.forEach(tab => tab.classList.remove('active'));
-            btns.forEach(btn => btn.classList.remove('active'));
-
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // 들이마시고 내쉬는 마인드 타이머
-        const elBreath = document.getElementById('breath-text');
+        // 들이마시고 내쉬기 타이머 루프 (4초 주기 교대)
+        const statusText = document.getElementById('breath-status');
         setInterval(() => {
-            if (elBreath.innerText === '들이마시기') {
-                elBreath.innerText = '내쉬기';
+            if (statusText.innerText === '들이마시기') {
+                statusText.innerText = '내쉬기';
             } else {
-                elBreath.innerText = '들이마시기';
+                statusText.innerText = '들이마시기';
             }
         }, 4000);
 
-        // 따뜻한 마음 힐링 문구셋 (가상 사과 및 온기 치료)
-        const healingQuotes = [
-            "그 사람들이 단톡방에 던진 비겁한 단어들은 너의 아름다운 가치를 훼손할 수 없어. 너는 이 세상에서 정말 소중한 사람이야. ✨",
-            "가해자들의 말은 다 비겁하게 숨은 헛소리일 뿐이야. 네 잘못은 1%도 없으니까 절대로 자책하며 아파하지 마.",
-            "나쁜 상처 단어들은 먼지가 되어 흔적 없이 공중분해되었어. 무서워하지 마, 네 뒤에는 널 도울 든든한 전문가 요원들이 대기 중이야. 🛡️",
-            "혼자 울고 있으면 마음이 계속 작아져. 이 앱 두 번째 탭에 적힌 푸른나무재단(1588-9128)이나 상담 센터에 전화 한 번만 조용히 걸어봐. 내 편이 되어줄 든든한 어른들이 즉각 지켜줄 거야."
+        // 전문 상담학 멘토링 기반 안심 치유 문장들
+        const comfortingTexts = [
+            "그 사람들이 단톡방에 던진 날카로운 조롱은 너의 소중한 가치를 1%도 무너뜨릴 수 없어. 네 잘못이 결코 아니니까 가슴 아파하며 자책하지 마. 🩹",
+            "상대방이 쏟아낸 욕설은 비겁하게 숨어서 보낸 헛소리일 뿐이야. 지금은 아무 생각도 하지 말고 가만히 눈을 감고 누워봐. 넌 정말 귀한 사람이야.",
+            "나쁜 마음에 눌려있던 답답함이 밤하늘 너머 먼지로 깨끗이 정화되어 흩어졌어. 혼자서 끙끙 앓으며 견뎌내지 않아도 괜찮아.",
+            "이 앱 상단에 있는 푸른나무재단(1588-9128)에 전화를 한 통 걸어봐. 다른 사람에겐 비밀로 하고, 오직 네 이야기만 귀담아 들어줄 든든한 전문가 어른들이 네 편이 되어줄 거야. 🛡️"
         ];
 
-        function destroyWords() {
-            const input = document.getElementById('bad-word-input');
-            const msgBox = document.getElementById('healing-message');
+        function clearBurden(burdenName) {
+            const output = document.getElementById('healing-output');
             
-            if (!input.value.trim()) return;
-
-            // 지우기 소멸 애니메이션 연출
-            input.value = "이 나쁜 저격 단어들이 안전 수호막 안에서 깨끗이 분해되고 있습니다...";
-            input.style.color = "#ef4444";
-            input.disabled = true;
-
-            setTimeout(() => {
-                input.value = "";
-                input.disabled = false;
-                input.style.color = "#f8fafc";
-                
-                // 위로 메시지 페이드인 노출
-                const rand = healingQuotes[Math.floor(Math.random() * healingQuotes.length)];
-                msgBox.innerText = rand;
-                msgBox.style.display = 'block';
-            }, 1200);
+            // 0.4초간 흔들리는 임시 애니메이션 효과를 주거나 위로 멘트 즉각 출력
+            const rand = comfortingTexts[Math.floor(Math.random() * comfortingTexts.length)];
+            output.innerHTML = `<strong>[${burdenName}]</strong> 마음을 어두운 대기권 밖으로 무사히 추방하여 날려 보냈어요.<br><br>${rand}`;
+            output.style.display = 'block';
         }
     </script>
 </body>
