@@ -74,7 +74,7 @@
             line-height: 1.4;
         }
 
-        /* 상단 피해 치료/교육 탭 메뉴 (3개 탭에 맞게 그리드 수정) */
+        /* 상단 피해 치료/교육 탭 메뉴 (3개 탭 구성) */
         .tab-menu {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -162,21 +162,6 @@
             45%, 55% { transform: scale(1.35); background: rgba(56, 189, 248, 0.3); }
         }
 
-        /* 2단계: 상처 지우기 인풋 및 위로 팝업 */
-        .trash-input {
-            width: 100%;
-            height: 55px;
-            background: #0f172a;
-            border: 1px solid #475569;
-            border-radius: 10px;
-            padding: 10px;
-            color: var(--text-light);
-            font-size: 11px;
-            outline: none;
-            resize: none;
-            font-weight: 500;
-        }
-
         .action-btn {
             background: var(--primary-color);
             color: #0f172a;
@@ -210,7 +195,49 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 3단계: 신고/상담 핫라인 리스트 */
+        /* 위로 게시판 전용 스타일 */
+        .board-input {
+            width: 100%;
+            height: 55px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            padding: 10px;
+            color: var(--text-light);
+            font-size: 11px;
+            outline: none;
+            resize: none;
+            font-weight: 500;
+        }
+
+        .board-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 180px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .board-item {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #e2e8f0;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .board-item .time {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* 2단계: 신고/상담 핫라인 리스트 */
         .phone-list {
             display: flex;
             flex-direction: column;
@@ -290,33 +317,6 @@
         }
 
         /* 탭 3: 사이버 불링 교육 컴포넌트 */
-        .stat-box {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        .stat-card {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .stat-num {
-            font-size: 18px;
-            font-weight: 900;
-            color: var(--accent-color);
-        }
-
-        .stat-desc {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
         .edu-list {
             display: flex;
             flex-direction: column;
@@ -352,7 +352,7 @@
             <p>이름이나 비밀번호는 묻지 않아요. 여긴 100% 완전 익명 비밀 보호구역입니다.</p>
         </header>
 
-        <!-- 탭 전환 장치 (3개 탭 구성) -->
+        <!-- 탭 전환 장치 -->
         <div class="tab-menu">
             <button class="tab-btn active" onclick="switchTab(event, 'tab-healing')">❤️ 마음 안심</button>
             <button class="tab-btn" onclick="switchTab(event, 'tab-law')">🛡️ 대응/상담</button>
@@ -373,13 +373,31 @@
                 </p>
             </div>
 
-            <!-- 상처 버리기 -->
+            <!-- 마음 백신 처방전 -->
             <div class="card">
-                <h3>💫 나쁜 단어 지워버리기</h3>
-                <p style="font-size: 10px; color: var(--text-muted);">나를 괴롭힌 비속어나 카톡글을 아래에 쓰고 던져버리세요.</p>
-                <textarea id="bad-word-input" class="trash-input" placeholder="상처 주었던 나쁜 말들을 적어보세요..."></textarea>
-                <button class="action-btn" onclick="destroyWords()">나쁜 말 공중 분해하기 💥</button>
-                <div class="message-bubble" id="healing-message"></div>
+                <h3>💉 나를 위한 마음 백신 처방받기</h3>
+                <p style="font-size: 10px; color: var(--text-muted);">지치고 상처받은 마음을 단단하게 지켜주는 오늘의 백신 한 줄을 받아보세요.</p>
+                <button class="action-btn" onclick="getVaccine()">마음 백신 처방받기 💊</button>
+                <div class="message-bubble" id="vaccine-message"></div>
+            </div>
+
+            <!-- 피해자 위로 글 쓰기 및 익명 게시판 -->
+            <div class="card">
+                <h3>💌 함께 나누는 따뜻한 온기 (익명)</h3>
+                <p style="font-size: 10px; color: var(--text-muted);">지금 이 순간 힘들어하고 있을 친구들에게 따뜻한 위로의 한마디를 남겨주세요.</p>
+                <textarea id="cheer-input" class="board-input" placeholder="함께 버텨내고 있는 친구들에게 위로와 응원의 글을 남겨주세요..."></textarea>
+                <button class="action-btn" onclick="addCheerMessage()">따뜻한 위로 남기기 🕊️</button>
+                
+                <div class="board-list" id="cheer-board">
+                    <div class="board-item">
+                        네 잘못이 절대 아니야. 우리는 항상 네 편이야, 용기 내! ✨
+                        <span class="time">익명 친구</span>
+                    </div>
+                    <div class="board-item">
+                        힘든 시간도 결국 지나가. 혼자 아파하지 말고 도와줄 어른들에게 꼭 이야기해 줘!
+                        <span class="time">익명 친구</span>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -437,28 +455,9 @@
 
         </div>
 
-        <!-- 탭 3: 사이버 불링의 심각성 및 교육적 접근 -->
+        <!-- 탭 3: 사이버 불링 교육적 접근 -->
         <div class="tab-content" id="tab-edu">
             
-            <!-- 심각성 알림 카드 -->
-            <div class="card">
-                <h3>⚠️ 사이버 불링, 왜 더 위험할까요?</h3>
-                <p style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
-                    사이버 공간의 폭력은 장소와 시간에 구애받지 않고 <strong>24시간 지속</strong>되며, 순식간에 확산되어 마음에 깊은 상처를 남깁니다.
-                </p>
-                
-                <div class="stat-box">
-                    <div class="stat-card">
-                        <div class="stat-num">24h</div>
-                        <div class="stat-desc">멈추지 않는 상처</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-num">∞</div>
-                        <div class="stat-desc">무한한 확산성</div>
-                    </div>
-                </div>
-            </div>
-
             <!-- 법적 처벌 및 심각성 안내 -->
             <div class="card">
                 <h3>🚨 장난이 아닌 엄연한 '범죄'입니다</h3>
@@ -497,7 +496,7 @@
     </div>
 
     <script>
-        // 탭 전환 엔진 (event 매개변수 추가하여 고도화)
+        // 탭 전환 엔진
         function switchTab(evt, tabId) {
             const tabs = document.querySelectorAll('.tab-content');
             const btns = document.querySelectorAll('.tab-btn');
@@ -519,35 +518,47 @@
             }
         }, 4000);
 
-        // 따뜻한 마음 힐링 문구셋 (가상 사과 및 온기 치료)
-        const healingQuotes = [
-            "그 사람들이 단톡방에 던진 비겁한 단어들은 너의 아름다운 가치를 훼손할 수 없어. 너는 이 세상에서 정말 소중한 사람이야. ✨",
-            "가해자들의 말은 다 비겁하게 숨은 헛소리일 뿐이야. 네 잘못은 1%도 없으니까 절대로 자책하며 아파하지 마.",
-            "나쁜 상처 단어들은 먼지가 되어 흔적 없이 공중분해되었어. 무서워하지 마, 네 뒤에는 널 도울 든든한 전문가 요원들이 대기 중이야. 🛡️",
-            "혼자 울고 있으면 마음이 계속 작아져. 이 앱 두 번째 탭에 적힌 푸른나무재단(1588-9128)이나 상담 센터에 전화 한 번만 조용히 걸어봐. 내 편이 되어줄 든든한 어른들이 즉각 지켜줄 거야."
+        // 마음 백신 문구 데이터
+        const vaccineQuotes = [
+            "💉 [마음 백신 1호] 남들이 던진 날카로운 단어는 너의 진정한 가치를 단 1%도 훼손할 수 없어. 너는 여전히 빛나는 사람이야. ✨",
+            "💉 [마음 백신 2호] 상대방의 비겁한 행동은 가해자 자신의 문제일 뿐이야. 절대로 너 자신을 탓하거나 자책하지 마.",
+            "💉 [마음 백신 3호] 혼자서 견뎌내지 않아도 돼. 주변에는 널 돕고 싶어 하는 따뜻한 어른들과 친구들이 언제나 기다리고 있어. 🛡️",
+            "💉 [마음 백신 4호] 오늘 밤은 차가운 모니터를 멀리하고, 좋아하는 음악을 들으며 네 지친 마음을 다정하게 안아주자. 🌙"
         ];
 
-        function destroyWords() {
-            const input = document.getElementById('bad-word-input');
-            const msgBox = document.getElementById('healing-message');
-            
+        function getVaccine() {
+            const msgBox = document.getElementById('vaccine-message');
+            const rand = vaccineQuotes[Math.floor(Math.random() * vaccineQuotes.length)];
+            msgBox.innerText = rand;
+            msgBox.style.display = 'block';
+        }
+
+        // 피해자 위로 게시판 등록 기능
+        function addCheerMessage() {
+            const input = document.getElementById('cheer-input');
+            const board = document.getElementById('cheer-board');
+
             if (!input.value.trim()) return;
 
-            // 지우기 소멸 애니메이션 연출
-            input.value = "이 나쁜 저격 단어들이 안전 수호막 안에서 깨끗이 분해되고 있습니다...";
-            input.style.color = "#ef4444";
-            input.disabled = true;
+            const newItem = document.createElement('div');
+            newItem.className = 'board-item';
+            newItem.innerHTML = `
+                ${escapeHtml(input.value.trim())}
+                <span class="time">방금 전 (익명 친구)</span>
+            `;
 
-            setTimeout(() => {
-                input.value = "";
-                input.disabled = false;
-                input.style.color = "#f8fafc";
-                
-                // 위로 메시지 페이드인 노출
-                const rand = healingQuotes[Math.floor(Math.random() * healingQuotes.length)];
-                msgBox.innerText = rand;
-                msgBox.style.display = 'block';
-            }, 1200);
+            board.prepend(newItem);
+            input.value = '';
+        }
+
+        // 텍스트 보안 이스케이프 처리
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
     </script>
 </body>
