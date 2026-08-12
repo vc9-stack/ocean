@@ -8,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19; /* 마음을 진정시키는 편안한 밤하늘색 */
+            --bg-color: #0b0f19;
             --card-bg: #1e293b;  
-            --primary-color: #38bdf8; /* 은은한 하늘빛 */
-            --accent-color: #f43f5e;  /* 따뜻한 위로의 로즈빛 */
+            --primary-color: #38bdf8;
+            --accent-color: #f43f5e;
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
             --success-color: #34d399;
@@ -35,7 +35,6 @@
             padding: 15px;
         }
 
-        /* 스마트폰 가로 크기에 딱 맞춘 아늑한 모바일 컨테이너 */
         .app-container {
             width: 100%;
             max-width: 450px;
@@ -73,7 +72,6 @@
             line-height: 1.4;
         }
 
-        /* 상단 피해 치료 탭 메뉴 */
         .tab-menu {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -111,7 +109,6 @@
             display: flex;
         }
 
-        /* 공통 카드 컴포넌트 */
         .card {
             background: var(--card-bg);
             border-radius: 16px;
@@ -131,7 +128,6 @@
             gap: 6px;
         }
 
-        /* 1단계: 마인드 안정 들이마시기 서클 */
         .breath-box {
             display: flex;
             flex-direction: column;
@@ -160,7 +156,6 @@
             45%, 55% { transform: scale(1.35); background: rgba(56, 189, 248, 0.3); }
         }
 
-        /* 버튼 및 위로 팝업 */
         .action-btn {
             background: var(--primary-color);
             color: #0f172a;
@@ -194,13 +189,13 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 3단계: 신고/상담 핫라인 리스트 */
         .phone-list {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
+        /* 클릭 가능한 카드 스타일 */
         .phone-item {
             background: #0f172a;
             border: 1px solid #334155;
@@ -209,19 +204,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            text-decoration: none;
+            cursor: pointer;
             color: var(--text-light);
-            transition: border-color 0.2s;
+            transition: all 0.2s;
+            user-select: none;
         }
 
         .phone-item:hover {
             border-color: var(--primary-color);
+            background: #1e293b;
+            transform: translateY(-2px);
         }
 
         .phone-info {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
         }
 
         .phone-title {
@@ -231,8 +229,8 @@
         }
 
         .phone-number {
-            font-size: 14px;
-            font-weight: 900;
+            font-size: 12px;
+            font-weight: 700;
             color: var(--primary-color);
         }
 
@@ -258,7 +256,6 @@
             color: var(--accent-color);
         }
 
-        /* 증거 비밀 가이드 */
         .guide-step {
             background: #0f172a;
             padding: 10px;
@@ -282,16 +279,12 @@
             <p>이름이나 비밀번호는 묻지 않아요. 여긴 100% 완전 익명 비밀 보호구역입니다.</p>
         </header>
 
-        <!-- 탭 전환 장치 -->
         <div class="tab-menu">
             <button class="tab-btn active" onclick="switchTab('tab-healing', event)">❤️ 마음 안심하기</button>
             <button class="tab-btn" onclick="switchTab('tab-law', event)">🛡️ 증거 남기고 상담하기</button>
         </div>
 
-        <!-- 탭 1: 마음 치유 영역 -->
         <div class="tab-content active" id="tab-healing">
-            
-            <!-- 심호흡 서클 -->
             <div class="card">
                 <h3>🌊 심장이 너무 쿵쾅거릴 때</h3>
                 <div class="breath-box">
@@ -302,20 +295,15 @@
                 </p>
             </div>
 
-            <!-- 마음 충전소 (수정된 카드) -->
             <div class="card">
                 <h3>🌱 나를 위한 마음 백신</h3>
                 <p style="font-size: 10px; color: var(--text-muted);">지치고 힘들 때, 버튼을 누르고 마음을 지켜주는 따뜻한 메시지를 확인해보세요.</p>
                 <button class="action-btn" onclick="getHealingMessage()">따뜻한 위로 한 줄 받아보기 💌</button>
                 <div class="message-bubble" id="healing-message"></div>
             </div>
-
         </div>
 
-        <!-- 탭 2: 대처 및 실제 연락처 노출 -->
         <div class="tab-content" id="tab-law">
-            
-            <!-- 증거 수집 가이드 -->
             <div class="card">
                 <h3>⚖️ 피해 해결을 위한 비밀 증거 가이드</h3>
                 <div class="guide-step">
@@ -328,46 +316,49 @@
                 </div>
             </div>
 
-            <!-- 다이렉트 긴급 콜 핫라인 -->
+            <!-- 강제 이동 스크립트 연결 -->
             <div class="card">
-                <h3>📞 꾹 누르면 바로 걸리는 든든한 상담소</h3>
-                <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 5px;">전화 상담 기록은 학교에 흔적조차 남지 않아요. 용기 내어 꾹 눌러보세요.</p>
+                <h3>🌐 클릭 시 공식 상담·신고 사이트로 이동</h3>
+                <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 5px;">버튼을 클릭하면 각 공식 상담소 웹사이트로 바로 연결됩니다.</p>
                 
                 <div class="phone-list">
-                    <!-- 푸른나무재단 상담전화 -->
-                    <a href="tel:1588-9128" class="phone-item emergency">
+                    <!-- 푸른나무재단 -->
+                    <div class="phone-item emergency" onclick="goToUrl('https://btf.or.kr/business/bus01.asp?scrID=0000000108&pageNum=3&subNum=1&ssubNum=1')">
                         <div class="phone-info">
                             <span class="phone-title">푸른나무재단 비폭력 24시간 상담</span>
-                            <span class="phone-number">1588-9128</span>
+                            <span class="phone-number">공식 상담 사이트 이동 ↗</span>
                         </div>
-                        <div class="call-icon">📞</div>
-                    </a>
+                        <div class="call-icon">🌐</div>
+                    </div>
 
-                    <!-- 경찰청 학교폭력 신고전화 -->
-                    <a href="tel:117" class="phone-item">
+                    <!-- 경찰청 117 -->
+                    <div class="phone-item" onclick="goToUrl('https://www.hi1318.or.kr/base/contents/view?contentsNo=18&menuLevel=3&menuNo=11')">
                         <div class="phone-info">
                             <span class="phone-title">경찰청 학교폭력 긴급 신고처</span>
-                            <span class="phone-number">117</span>
+                            <span class="phone-number">117 신고센터 이동 ↗</span>
                         </div>
                         <div class="call-icon">🚨</div>
-                    </a>
+                    </div>
 
-                    <!-- 청소년 헬프라인 -->
-                    <a href="tel:1388" class="phone-item">
+                    <!-- 청소년 1388 -->
+                    <div class="phone-item" onclick="goToUrl('https://www.1388.go.kr/ind/YTOSP_SC_IND_01')">
                         <div class="phone-info">
                             <span class="phone-title">여성가족부 청소년 모바일 상담</span>
-                            <span class="phone-number">1388</span>
+                            <span class="phone-number">1388 모바일 상담 이동 ↗</span>
                         </div>
                         <div class="call-icon">📱</div>
-                    </a>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        // 탭 전환 엔진
+        // URL 이동 함수 (새 창 및 현재 창 모두 대응)
+        function goToUrl(url) {
+            window.open(url, '_blank');
+        }
+
         function switchTab(tabId, evt) {
             const tabs = document.querySelectorAll('.tab-content');
             const btns = document.querySelectorAll('.tab-btn');
@@ -381,7 +372,6 @@
             }
         }
 
-        // 들이마시고 내쉬는 마인드 타이머
         const elBreath = document.getElementById('breath-text');
         setInterval(() => {
             if (elBreath.innerText === '들이마시기') {
@@ -391,19 +381,16 @@
             }
         }, 4000);
 
-        // 따뜻한 마음 힐링 문구셋 (재자극 요소 완전 배제)
         const healingQuotes = [
             "누군가가 던진 무책임한 말들은 너의 아름다운 가치를 결코 훼손할 수 없어. 너는 존재 자체로 너무나 귀한 사람이야. ✨",
             "너의 잘못은 전혀 없어. 지금 느끼는 아픔은 네 탓이 아니니까, 절대로 자책하며 괴로워하지 않았으면 좋겠어.",
             "지금은 잠시 안개가 낀 것처럼 막막하겠지만, 너를 응원하고 돕고자 하는 손길들이 늘 가까이에 있어. 🛡️",
-            "혼자 고통을 견디려 하지 않아도 돼. 두 번째 탭의 전문가 상담소(1588-9128)는 언제나 네 편이 되어줄 준비가 되어 있어.",
+            "혼자 고통을 견디려 하지 않아도 돼. 두 번째 탭의 전문가 상담 사이트 링크를 통해 부담 없이 내 편이 되어줄 어른들을 만나봐.",
             "오늘 하루도 견뎌내느라 정말 고생 많았어. 너의 내일은 오늘보다 훨씬 따뜻하고 안전할 거야. 💙"
         ];
 
         function getHealingMessage() {
             const msgBox = document.getElementById('healing-message');
-            
-            // 랜덤 위로 메시지 노출
             const rand = healingQuotes[Math.floor(Math.random() * healingQuotes.length)];
             msgBox.innerText = rand;
             msgBox.style.display = 'block';
