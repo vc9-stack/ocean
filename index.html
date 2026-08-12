@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마음 대피소 (Mind Oasis)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Noto+Sans+KR:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a; /* 마음을 차분하게 해주는 밤하늘색 */
+            --card-bg: #1e293b;
+            --primary-color: #38bdf8; /* 따뜻한 하늘색 */
+            --accent-color: #f43f5e; /* 따뜻한 핑크 */
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans KR', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        /* 폰 크기에 딱 맞춘 아늑한 대피소 프레임 */
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: #111827;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            padding: 20px;
+            min-height: 750px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            border: 1px solid #374151;
+        }
+
+        header {
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        header h1 {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        header p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* 1. 심호흡 가이드 영역 (공황 완화) */
+        .breath-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid #334155;
+        }
+
+        .breath-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .breath-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.2);
+            border: 2px solid var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            animation: breathe 8s infinite ease-in-out;
+            margin: 10px 0;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); background: rgba(56, 189, 248, 0.1); }
+            40%, 60% { transform: scale(1.4); background: rgba(56, 189, 248, 0.3); }
+        }
+
+        /* 2. 나쁜 말 버리기 쓰레기통 */
+        .trash-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .trash-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .trash-input {
+            width: 100%;
+            height: 60px;
+            background: #0f172a;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            padding: 10px;
+            color: var(--text-light);
+            font-size: 12px;
+            outline: none;
+            resize: none;
+        }
+
+        .trash-btn {
+            background: var(--primary-color);
+            color: #0f172a;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .trash-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 3. 증거 보존 비밀 도우미 */
+        .evidence-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 15px;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .evidence-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fbbf24; /* 경고/도움 황금색 */
+        }
+
+        .guide-box {
+            background: #0f172a;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+
+        .guide-box strong {
+            color: #fbbf24;
+        }
+
+        /* 4. 비밀 상담 및 도움 요청 버튼 */
+        .help-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .help-btn {
+            background: #334155;
+            color: var(--text-light);
+            border: 1px solid #475569;
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: background 0.2s;
+        }
+
+        .help-btn:active {
+            background: #475569;
+        }
+
+        .help-btn.emergency {
+            background: #ef4444;
+            border: none;
+        }
+
+        .help-btn.emergency:active {
+            background: #dc2626;
+        }
+
+        /* 위로 팝업 */
+        .comfort-bubble {
+            background: #1e1b4b;
+            border: 1px solid #4f46e5;
+            border-radius: 12px;
+            padding: 10px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #c7d2fe;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>🌌 마음 대피소 (Oasis)</h1>
+            <p>개인정보나 학번은 묻지 않아요. 여긴 완전히 안전한 방패막입니다.</p>
+        </header>
+
+        <!-- 1. 심호흡 카드 -->
+        <div class="breath-card">
+            <h3>상처받아 심장이 쿵쾅거릴 때</h3>
+            <p style="font-size: 11px; color: var(--text-muted);">아래 원이 커질 때 숨을 들이마시고, 작아질 때 내쉬어 보세요.</p>
+            <div class="breath-circle" id="breath-text">숨쉬기</div>
+        </div>
+
+        <!-- 2. 나쁜 말 휴지통 -->
+        <div class="trash-card">
+            <h3>나쁜 말 우주 밖으로 버리기</h3>
+            <p style="font-size: 11px; color: var(--text-muted);">나를 괴롭힌 비속어나 저격글을 여기에 적고 던져버리세요.</p>
+            <textarea id="bad-text" class="trash-input" placeholder="상처 주었던 말을 여기에 적어보세요..."></textarea>
+            <button class="trash-btn" onclick="throwAway()">나쁜 말 지우기 💫</button>
+            <div class="comfort-bubble" id="comfort-box"></div>
+        </div>
+
+        <!-- 3. 증거 보존 비밀 도우미 -->
+        <div class="evidence-card">
+            <h3>혹시 모를 상황을 위한 캡처 가이드</h3>
+            <div class="guide-box">
+                사이버 폭력을 해결하려면 <strong>법적 증거</strong>가 제일 중요해요! 억울해서 대화방을 지우지 말고 꼭 이렇게 해주세요.<br><br>
+                1. <strong>욕설이 적힌 날짜와 시간</strong>이 보이게 캡처하기<br>
+                2. 가해자의 <strong>SNS ID나 프로필 화면</strong> 캡처하기<br>
+                3. 단톡방에 있던 <strong>다른 방관자들 명단</strong> 확보하기
+            </div>
+        </div>
+
+        <!-- 4. 원클릭 비밀 도움망 -->
+        <div class="help-group">
+            <a href="tel:1588-9128" class="help-btn emergency">
+                <span>📞 푸른나무재단</span>
+                <span style="font-size: 9px; opacity:0.8;">24시간 비밀 상담</span>
+            </a>
+            <a href="tel:117" class="help-btn" style="background:#0284c7; border:none;">
+                <span>🚨 경찰 학폭신고</span>
+                <span style="font-size: 9px; opacity:0.8;">전화번호 117</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 숨쉬기 텍스트 변경 이벤트
+        const elBreath = document.getElementById('breath-text');
+        setInterval(() => {
+            if (elBreath.innerText === '들이마시기') {
+                elBreath.innerText = '내쉬기';
+            } else {
+                elBreath.innerText = '들이마시기';
+            }
+        }, 4000);
+
+        const comfortQuotes = [
+            "그 사람들이 쓴 나쁜 글은 당신의 잘못이 아니에요. 당신은 정말 소중한 사람입니다. ✨",
+            "지금은 아무 생각 하지 말고 눈을 감고 푹 쉬세요. 무서워할 필요 전혀 없어요.",
+            "나쁜 말들은 전부 우주 먼지로 변해 사라졌습니다. 당신 곁엔 항상 수호자들이 있어요. 🛡️",
+            "혼자 견디지 마세요. 밑의 버튼을 눌러 전문가 선생님들에게 조용히 털어놓아 보세요."
+        ];
+
+        function throwAway() {
+            const input = document.getElementById('bad-text');
+            const comfortBox = document.getElementById('comfort-box');
+            
+            if(!input.value.trim()) return;
+
+            // 나쁜 말 텍스트 증발 애니메이션 연출
+            input.value = "우주 먼지로 소멸되는 중...";
+            input.style.color = "#94a3b8";
+            input.disabled = true;
+
+            setTimeout(() => {
+                input.value = "";
+                input.disabled = false;
+                input.style.color = "#f8fafc";
+                
+                // 위로 메시지 랜덤 출력
+                const rand = comfortQuotes[Math.floor(Math.random() * comfortQuotes.length)];
+                comfortBox.innerText = rand;
+                comfortBox.style.display = 'block';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
